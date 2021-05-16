@@ -21,7 +21,6 @@ class FButton: UIButton {
     init(color: UIColor, title: String) {
         super.init(frame: .zero)
         self.backgroundColor = color
-        self.setTitleColor(.label, for: .normal)
         self.setTitleColor(color, for: .highlighted)
         
         self.setTitle(title, for: .normal)
