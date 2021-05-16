@@ -27,6 +27,8 @@ class SearchVC: UIViewController {
         configureTextField()
         configureCallToActionButton()
         createDismissKeyboardGesture()
+        
+       
 
     }
     
@@ -34,7 +36,6 @@ class SearchVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,6 +61,7 @@ class SearchVC: UIViewController {
     
     private func configureTextField() {
         view.addSubview(userTextField)
+        userTextField.delegate = self
         
         NSLayoutConstraint.activate([
             userTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 48),
@@ -71,6 +73,7 @@ class SearchVC: UIViewController {
     
     private func configureCallToActionButton() {
         view.addSubview(callToActionButton)
+        callToActionButton.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
@@ -81,15 +84,32 @@ class SearchVC: UIViewController {
         ])
 
     }
+    
     private func createDismissKeyboardGesture() {
-        
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         
         view.addGestureRecognizer(tap)
     }
     
+    @objc private func pushFollowerListVC() {
+        
+        guard let text = userTextField.text, !text.isEmpty else {return}
+        let vc = FollowerListVC()
+        vc.userName = text
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+}
+    
     //MARK: - Extensions
 
-
+extension SearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        pushFollowerListVC()
+        textField.resignFirstResponder()
+        return true
+    }
 }
+
 

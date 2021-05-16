@@ -15,6 +15,7 @@
 		A031C4FE264EAC5000180D44 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031C4FD264EAC5000180D44 /* FavoritesVC.swift */; };
 		A031C501264FA5D400180D44 /* FButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031C500264FA5D400180D44 /* FButton.swift */; };
 		A031C5062650F53400180D44 /* FTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031C5052650F53400180D44 /* FTextField.swift */; };
+		A031C509265179DA00180D44 /* FollowerListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031C508265179DA00180D44 /* FollowerListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		A031C4FD264EAC5000180D44 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		A031C500264FA5D400180D44 /* FButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FButton.swift; sourceTree = "<group>"; };
 		A031C5052650F53400180D44 /* FTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTextField.swift; sourceTree = "<group>"; };
+		A031C508265179DA00180D44 /* FollowerListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				A031C4E6264E769300180D44 /* SceneDelegate.swift */,
 				A031C4E8264E769300180D44 /* SearchVC.swift */,
 				A031C4FD264EAC5000180D44 /* FavoritesVC.swift */,
+				A031C508265179DA00180D44 /* FollowerListVC.swift */,
 				A031C500264FA5D400180D44 /* FButton.swift */,
 				A031C5052650F53400180D44 /* FTextField.swift */,
 				A031C4ED264E769600180D44 /* Assets.xcassets */,
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A031C509265179DA00180D44 /* FollowerListVC.swift in Sources */,
 				A031C4FE264EAC5000180D44 /* FavoritesVC.swift in Sources */,
 				A031C4E9264E769300180D44 /* SearchVC.swift in Sources */,
 				A031C501264FA5D400180D44 /* FButton.swift in Sources */,
