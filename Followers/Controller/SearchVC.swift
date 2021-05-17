@@ -16,10 +16,12 @@ class SearchVC: UIViewController {
     let callToActionButton = FButton(color: .systemGreen, title: "Get Followers")
     
     //MARK: - Properties
+    var isUsernmeEntered: Bool {
+        guard let text = userTextField.text else {return false}
+        return !text.isEmtyOrWhiteSpace()
+    }
     
     //MARK: - LifeCycle Methods
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -27,9 +29,6 @@ class SearchVC: UIViewController {
         configureTextField()
         configureCallToActionButton()
         createDismissKeyboardGesture()
-        
-       
-
     }
     
     
@@ -37,11 +36,7 @@ class SearchVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
+
     
     //MARK: - Methods
     
@@ -93,9 +88,10 @@ class SearchVC: UIViewController {
     
     @objc private func pushFollowerListVC() {
         
-        guard let text = userTextField.text, !text.isEmpty else {return}
+        guard isUsernmeEntered else {print("UserName is not entered"); return}
+        
         let vc = FollowerListVC()
-        vc.userName = text
+        vc.userName = userTextField.text!
         navigationController?.pushViewController(vc, animated: true)
         
     }

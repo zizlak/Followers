@@ -17,11 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-    
-        window?.rootViewController = cteateTabBarC()
-        window?.makeKeyAndVisible()
         
+        window?.rootViewController = cteateTabBarC()
+        
+        window?.makeKeyAndVisible()
         configureNavBar()
+       
     }
     
     
@@ -43,6 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func cteateTabBarC() -> UITabBarController {
         let tabC = UITabBarController()
+        
         UITabBar.appearance().tintColor = .systemGreen
         
         tabC.viewControllers = [createSearchNC(), createFavoritesNC()]
@@ -51,7 +53,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func configureNavBar() {
         UINavigationBar.appearance().tintColor = .systemGreen
-        UINavigationBar.appearance().prefersLargeTitles = true
     }
     
 
