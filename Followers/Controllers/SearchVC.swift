@@ -22,6 +22,7 @@ class SearchVC: UIViewController {
     }
     
     //MARK: - LifeCycle Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -29,12 +30,13 @@ class SearchVC: UIViewController {
         configureTextField()
         configureCallToActionButton()
         createDismissKeyboardGesture()
+
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     
@@ -95,6 +97,7 @@ class SearchVC: UIViewController {
         
         let vc = FollowerListVC()
         vc.userName = userTextField.text!
+        vc.title = userTextField.text!
         navigationController?.pushViewController(vc, animated: true)
         
     }
