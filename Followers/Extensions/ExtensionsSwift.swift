@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  ExtensionsSwift.swift
 //  Followers
 //
 //  Created by Aleksandr Kurdiukov on 16.05.21.
