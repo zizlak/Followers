@@ -24,6 +24,9 @@
 		A0DB318C265288DF00C47D1B /* FollowerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DB318B265288DF00C47D1B /* FollowerModel.swift */; };
 		A0DB318F2652899F00C47D1B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DB318E2652899F00C47D1B /* UserModel.swift */; };
 		A0DB31922652983700C47D1B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DB31912652983700C47D1B /* NetworkManager.swift */; };
+		A0E67A6E265312B10056396B /* FError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E67A6D265312B10056396B /* FError.swift */; };
+		A0E67A72265399790056396B /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E67A71265399790056396B /* FollowerCell.swift */; };
+		A0E67A7826539ABF0056396B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E67A7726539ABF0056396B /* AvatarImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,9 @@
 		A0DB318B265288DF00C47D1B /* FollowerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerModel.swift; sourceTree = "<group>"; };
 		A0DB318E2652899F00C47D1B /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A0DB31912652983700C47D1B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		A0E67A6D265312B10056396B /* FError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FError.swift; sourceTree = "<group>"; };
+		A0E67A71265399790056396B /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
+		A0E67A7726539ABF0056396B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,7 @@
 				A0DB318B265288DF00C47D1B /* FollowerModel.swift */,
 				A0DB318E2652899F00C47D1B /* UserModel.swift */,
 				A0DB31912652983700C47D1B /* NetworkManager.swift */,
+				A0E67A6D265312B10056396B /* FError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -106,6 +113,8 @@
 				A031C51426523B1F00180D44 /* FTitleLabel.swift */,
 				A031C5182652490400180D44 /* FBodyLabel.swift */,
 				A031C5052650F53400180D44 /* FTextField.swift */,
+				A0E67A7726539ABF0056396B /* AvatarImageView.swift */,
+				A0E67A74265399890056396B /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -138,6 +147,14 @@
 				A031C51F2652529500180D44 /* ExtensionsUIKit.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A0E67A74265399890056396B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A0E67A71265399790056396B /* FollowerCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,9 +230,12 @@
 				A031C509265179DA00180D44 /* FollowerListVC.swift in Sources */,
 				A031C5202652529500180D44 /* ExtensionsUIKit.swift in Sources */,
 				A031C4FE264EAC5000180D44 /* FavoritesVC.swift in Sources */,
+				A0E67A6E265312B10056396B /* FError.swift in Sources */,
 				A031C4E9264E769300180D44 /* SearchVC.swift in Sources */,
 				A0DB318C265288DF00C47D1B /* FollowerModel.swift in Sources */,
+				A0E67A72265399790056396B /* FollowerCell.swift in Sources */,
 				A031C50D265187B100180D44 /* ExtensionsSwift.swift in Sources */,
+				A0E67A7826539ABF0056396B /* AvatarImageView.swift in Sources */,
 				A031C501264FA5D400180D44 /* FButton.swift in Sources */,
 				A0DB318F2652899F00C47D1B /* UserModel.swift in Sources */,
 				A031C4E5264E769300180D44 /* AppDelegate.swift in Sources */,

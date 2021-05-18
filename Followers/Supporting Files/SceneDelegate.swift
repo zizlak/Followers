@@ -53,6 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func configureNavBar() {
         UINavigationBar.appearance().tintColor = .systemGreen
+        UINavigationBar.appearance().prefersLargeTitles = true
     }
     
 

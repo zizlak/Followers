@@ -11,6 +11,8 @@ class FollowerListVC: UIViewController {
     
     //MARK: - Interface
     
+    var collectionView: UICollectionView!
+    
     //MARK: - Properties
     
     var userName: String!
@@ -19,30 +21,45 @@ class FollowerListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = .systemBackground
-        
-        
-        NetworkManager.shared.getFollowers(for: userName, page: 1) { (followers, error) in
-            
-            guard let followers = followers else {
-                self.presentFAllertOnMainThread(title: "Something went wrong", message: error ?? "", buttonTitle: "Ok")
-                return
-            }
-            print(followers)
-        }
-
+        configureViewController()
+        configureCollectionView()
+        getFollowers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-        
     }
     
     //MARK: - Methods
     
+    private func configureViewController() {
+        view.backgroundColor = .systemBackground
+        
+    }
+    
+    private func configureCollectionView() {
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+        
+        view.addSubview(collectionView)
+        collectionView.backgroundColor = .systemPink
+        collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
+    }
+    
+    
+    //MARK: - Networking
+    private func getFollowers() {
+        NetworkManager.shared.getFollowers(for: userName, page: 1) { result in
+            switch result {
+            case .failure(let error):
+                self.presentFAllertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                
+            case .success(let followers):
+                print(followers)
+            }
+        }
+    }
+    
     //MARK: - Extensions
-
+    
 }
