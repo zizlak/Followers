@@ -5,17 +5,18 @@
 //  Created by Aleksandr Kurdiukov on 17.05.21.
 //
 
-import Foundation
+import UIKit
 
 class NetworkManager {
     static let shared = NetworkManager()
-    let numberOfPages = "100"
+    private let numberOfPages = "100"
+    let cache = NSCache<NSString, UIImage>()
     
     private init(){}
     
     
     
-    func getFollowers(for userName: String, page: Int, completion: @escaping (Result<[FollowerModel], FError>) -> Void) {
+    func getFollowers(for userName: String, page: Int, completion: @escaping (Result<[Follower], FError>) -> Void) {
         
         //MARK: - URL
         //    let baseURL = "https://api.github.com/users/"
@@ -51,7 +52,7 @@ class NetworkManager {
             jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
             
             do {
-                let followers = try jsonDecoder.decode([FollowerModel].self, from: data)
+                let followers = try jsonDecoder.decode([Follower].self, from: data)
                 completion(.success(followers))
             } catch {
                 completion(.failure(.invalidData))
