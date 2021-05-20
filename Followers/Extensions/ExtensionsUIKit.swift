@@ -7,6 +7,8 @@
 
 import UIKit
 
+fileprivate var loadingScreen: UIView?
+
 extension UIViewController {
     
     func presentFAllertOnMainThread(title: String, message: String, buttonTitle: String) {
@@ -15,10 +17,52 @@ extension UIViewController {
             let allertVC = FAllertVC(title: title, message: message, buttonTitle: buttonTitle)
             allertVC.modalPresentationStyle = .overFullScreen
             allertVC.modalTransitionStyle = .crossDissolve
-        
+            
             self.present(allertVC, animated: true)
         }
         
     }
     
+    
+    func showLoadingScreen() {
+        loadingScreen = UIView(frame: view.bounds)
+        guard let loadingScreen = loadingScreen else { return }
+        
+        view.addSubview(loadingScreen)
+        
+        loadingScreen.backgroundColor = .systemBackground
+        loadingScreen.alpha = 0
+        
+        UIView.animate(withDuration: 0.3) {
+            loadingScreen.alpha = 0.8
+        }
+        let activityInd = UIActivityIndicatorView(style: .large)
+        loadingScreen.addSubview(activityInd)
+        
+        activityInd.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            activityInd.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityInd.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        activityInd.startAnimating()
+        
+    }
+    
+    func dismissLoadingScreen() {
+        DispatchQueue.main.async {
+            loadingScreen?.removeFromSuperview()
+            loadingScreen = nil
+        }
+    }
+    
+    
+    func showEmtyStateView(with message: String, in view: @autoclosure @escaping () -> UIView) {
+        DispatchQueue.main.async {
+            let emptyStateView = EmptyStateView(message: message)
+            emptyStateView.frame = view().bounds
+            view().addSubview(emptyStateView)
+        }
+    }
 }

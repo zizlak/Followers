@@ -56,4 +56,8 @@ class FollowerCell: UICollectionViewCell {
         ])
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.avatrImageView.setPlaceholder()
+    }
 }

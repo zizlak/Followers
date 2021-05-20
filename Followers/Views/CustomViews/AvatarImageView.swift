@@ -12,7 +12,6 @@ class AvatarImageView: UIImageView {
     //MARK: - Interface
     
     //MARK: - Properties
-    let placeolderImage = UIImage(named: "avatar-placeholder")
     let cache = NetworkManager.shared.cache
     
     //MARK: - LifeCycle Methods
@@ -31,8 +30,12 @@ class AvatarImageView: UIImageView {
     private func configure() {
         layer.cornerRadius = 10
         clipsToBounds = true
-        image = placeolderImage
+        setPlaceholder()
         translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func setPlaceholder() {
+        image = UIImage(named: "avatar-placeholder")
     }
     
     func downloadImage(from urlString: String?) {
