@@ -19,17 +19,16 @@ class UserHeaderVC: UIViewController {
     let bioLabel = FBodyLabel(textAlignment: .left)
     
     //MARK: - Properties
-    
-    let padding: CGFloat = 20
+
     let imagePadding: CGFloat = 12
     
-    var user: User?
+    var user: User
     
     //MARK: - Init
 
     init(user: User) {
-        super.init(nibName: nil, bundle: nil)
         self.user = user
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -68,21 +67,21 @@ class UserHeaderVC: UIViewController {
         NSLayoutConstraint.activate([
             
             //avatar
-            avatarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
-            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            avatarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             avatarImageView.heightAnchor.constraint(equalToConstant: 90),
             avatarImageView.widthAnchor.constraint(equalTo: avatarImageView.heightAnchor),
             
             //titelLabel
             titelLabel.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
             titelLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: imagePadding),
-            titelLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            titelLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             titelLabel.heightAnchor.constraint(equalToConstant: 38),
             
             //nameLabel
             nameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor, constant: 8),
             nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: imagePadding),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
             
             //locationImageView
@@ -94,13 +93,13 @@ class UserHeaderVC: UIViewController {
             //locationLabel
             locationLabel.centerYAnchor.constraint(equalTo: locationImageView.centerYAnchor),
             locationLabel.leadingAnchor.constraint(equalTo: locationImageView.trailingAnchor, constant: 5),
-            locationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            locationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             locationLabel.heightAnchor.constraint(equalToConstant: 20),
             
             //bioLabel
             bioLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: imagePadding),
             bioLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
-            bioLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            bioLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bioLabel.heightAnchor.constraint(equalToConstant: 60)
             
         ])
@@ -108,7 +107,6 @@ class UserHeaderVC: UIViewController {
     }
     
     private func setUser() {
-        guard let user = user else { return }
         
         avatarImageView.downloadImage(from: user.avatarUrl)
         titelLabel.text = user.login
@@ -120,8 +118,5 @@ class UserHeaderVC: UIViewController {
     }
     
     //MARK: - ExtensibioLabel = FBodyLaons
-    
-    
-    
     
 }

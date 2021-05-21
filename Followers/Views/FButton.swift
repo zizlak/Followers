@@ -22,7 +22,6 @@ class FButton: UIButton {
         super.init(frame: .zero)
         self.backgroundColor = color
         self.setTitleColor(color, for: .highlighted)
-        
         self.setTitle(title, for: .normal)
         configure()
     }
@@ -32,6 +31,17 @@ class FButton: UIButton {
         setTitleColor(.white, for: .normal)
         titleLabel?.font        = UIFont.preferredFont(forTextStyle: .headline)
         translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    
+    
+    func set(color: UIColor, title: String) {
+        self.setTitle(title, for: .normal)
+        
+        self.backgroundColor = color
+        self.setTitleColor(color, for: .highlighted)
+        
+        
     }
     
 }

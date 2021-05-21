@@ -16,9 +16,12 @@ class UserInfoVC: UIViewController {
     let itemView2 = UIView()
     
     //MARK: - Properties
+    weak var delegate: FollowerListVC?
     
     var user: User?
     var userName: String?
+    let padding: CGFloat = 20
+    let itemHeight: CGFloat = 140
     
     //MARK: - LifeCycle Methods
     
@@ -53,6 +56,10 @@ class UserInfoVC: UIViewController {
             case .success(let user):
                 DispatchQueue.main.async {
                     self.add(childVC: UserHeaderVC(user: user), to: self.headerView)
+                    self.add(childVC: FRepoVC(user: user), to: self.itemView1)
+                    let vc = FFollowersVC(user: user)
+                    vc.delegate = self
+                    self.add(childVC: vc, to: self.itemView2)
                 }
                 
             case .failure(let error):
@@ -61,15 +68,33 @@ class UserInfoVC: UIViewController {
         }
     }
     
+    //MARK: - Layout
     private func layoutUI() {
-        view.addSubview(headerView)
-        headerView.translatesAutoresizingMaskIntoConstraints = false
+        for v in [headerView, itemView1, itemView2] {
+            view.addSubview(v)
+            v.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                v.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+                v.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
+            ])
+        }
         
         NSLayoutConstraint.activate([
+            
+            //Header
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 180)
+            headerView.heightAnchor.constraint(equalToConstant: 180),
+            
+            
+            //Item1
+            itemView1.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
+            itemView1.heightAnchor.constraint(equalToConstant: itemHeight),
+            
+            
+            //Item2
+            itemView2.topAnchor.constraint(equalTo: itemView1.bottomAnchor, constant: padding),
+            itemView2.heightAnchor.constraint(equalToConstant: itemHeight)
         ])
     }
     
@@ -82,3 +107,10 @@ class UserInfoVC: UIViewController {
 }
 
 //MARK: - Extensions
+
+extension UserInfoVC {
+    func userSelected(user: String) {
+        self.dismiss(animated: true)
+        delegate?.userSelected(user: user)
+    }
+}

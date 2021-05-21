@@ -33,8 +33,9 @@ class FollowerListVC: UIViewController {
         configureViewController()
         configureSearchController()
         configureCollectionView()
-        getFollowers(page: page)
         configureDataSource()
+        
+        getFollowers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,9 +91,9 @@ class FollowerListVC: UIViewController {
     }
     
     //MARK: - Networking
-    func getFollowers(page: Int) {
+    func getFollowers() {
         showLoadingScreen()
-        NetworkManager.shared.getFollowers(for: userName, page: page) { [weak self] (result) in
+        NetworkManager.shared.getFollowers(for: userName, page: self.page) { [weak self] (result) in
             guard let self = self else { return }
             self.dismissLoadingScreen()
             
@@ -126,14 +127,10 @@ extension FollowerListVC: UICollectionViewDelegate {
         let contentHeight =  scrollView.contentSize.height
         let height = scrollView.frame.size.height
         
-        print(offsetY)
-        print(contentHeight)
-        print(height)
-        
         if offsetY > contentHeight - height {
             guard hasMoreFollowers else { return }
             page += 1
-            getFollowers(page: page)
+            getFollowers()
             
         }
         
@@ -146,6 +143,7 @@ extension FollowerListVC: UICollectionViewDelegate {
         let follower = array[indexPath.row]
         
         let vc = UserInfoVC()
+        vc.delegate = self
         vc.user = nil
         vc.userName = follower.login
         
@@ -171,3 +169,13 @@ extension FollowerListVC: UISearchResultsUpdating, UISearchBarDelegate {
 }
     
 
+extension FollowerListVC {
+    func userSelected(user: String) {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        userName = user
+        title = user
+        followers = []
+        page = 1
+        getFollowers()
+    }
+}
