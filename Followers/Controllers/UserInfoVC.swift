@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol UserInfoVCDelegate: class {
+    func didTapGitHubProfile()
+    func didTapGetFollowers()
+}
+
 class UserInfoVC: UIViewController {
     
     //MARK: - Interface
@@ -14,6 +19,7 @@ class UserInfoVC: UIViewController {
     let headerView = UIView()
     let itemView1 = UIView()
     let itemView2 = UIView()
+    let dateLabel = FBodyLabel(textAlignment: .center)
     
     //MARK: - Properties
     weak var delegate: FollowerListVC?
@@ -60,6 +66,9 @@ class UserInfoVC: UIViewController {
                     let vc = FFollowersVC(user: user)
                     vc.delegate = self
                     self.add(childVC: vc, to: self.itemView2)
+  
+                    
+                    self.dateLabel.text = "on GitHub since " + (user.createdAt?.convertDateToDisplayFormat() ?? "N/A")
                 }
                 
             case .failure(let error):
@@ -70,7 +79,7 @@ class UserInfoVC: UIViewController {
     
     //MARK: - Layout
     private func layoutUI() {
-        for v in [headerView, itemView1, itemView2] {
+        for v in [headerView, itemView1, itemView2, dateLabel] {
             view.addSubview(v)
             v.translatesAutoresizingMaskIntoConstraints = false
             
@@ -94,7 +103,11 @@ class UserInfoVC: UIViewController {
             
             //Item2
             itemView2.topAnchor.constraint(equalTo: itemView1.bottomAnchor, constant: padding),
-            itemView2.heightAnchor.constraint(equalToConstant: itemHeight)
+            itemView2.heightAnchor.constraint(equalToConstant: itemHeight),
+            
+            //DateLabel
+            dateLabel.topAnchor.constraint(equalTo: itemView2.bottomAnchor, constant: padding),
+            dateLabel.heightAnchor.constraint(equalToConstant: 18)
         ])
     }
     
