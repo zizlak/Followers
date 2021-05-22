@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FollowerListVCDelegate: class {
+    func didRequestFollowers(for userName: String)
+}
+
 class FollowerListVC: UIViewController {
     
     //MARK: - Interface
@@ -137,14 +141,12 @@ extension FollowerListVC: UICollectionViewDelegate {
     }
     
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let array = isSearching ? filteredFollowers : followers
         let follower = array[indexPath.row]
         
         let vc = UserInfoVC()
         vc.delegate = self
-        vc.user = nil
         vc.userName = follower.login
         
         let navC = UINavigationController(rootViewController: vc)
@@ -169,13 +171,14 @@ extension FollowerListVC: UISearchResultsUpdating, UISearchBarDelegate {
 }
     
 
-extension FollowerListVC {
-    func userSelected(user: String) {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        userName = user
-        title = user
+extension FollowerListVC: FollowerListVCDelegate {
+    func didRequestFollowers(for userName: String) {
+        self.userName = userName
+        title = userName
         followers = []
+        filteredFollowers = []
         page = 1
+        collectionView.setContentOffset(.zero, animated: true)
         getFollowers()
     }
 }

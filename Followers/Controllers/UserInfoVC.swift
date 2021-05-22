@@ -8,8 +8,8 @@
 import UIKit
 
 protocol UserInfoVCDelegate: class {
-    func didTapGitHubProfile()
-    func didTapGetFollowers()
+    func didTapGitHubProfile(for user: User)
+    func didTapGetFollowers(for user: User)
 }
 
 class UserInfoVC: UIViewController {
@@ -22,9 +22,9 @@ class UserInfoVC: UIViewController {
     let dateLabel = FBodyLabel(textAlignment: .center)
     
     //MARK: - Properties
-    weak var delegate: FollowerListVC?
     
-    var user: User?
+    weak var delegate: FollowerListVCDelegate?
+    
     var userName: String?
     let padding: CGFloat = 20
     let itemHeight: CGFloat = 140
@@ -52,6 +52,7 @@ class UserInfoVC: UIViewController {
         dismiss(animated: true)
     }
     
+    //MARK: - Networking
     private func fetchUser() {
         guard let userName = userName else { return }
         NetworkManager.shared.getUserInfo(for: userName) { [weak self] (result) in
@@ -61,20 +62,27 @@ class UserInfoVC: UIViewController {
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    self.add(childVC: UserHeaderVC(user: user), to: self.headerView)
-                    self.add(childVC: FRepoVC(user: user), to: self.itemView1)
-                    let vc = FFollowersVC(user: user)
-                    vc.delegate = self
-                    self.add(childVC: vc, to: self.itemView2)
-  
-                    
-                    self.dateLabel.text = "on GitHub since " + (user.createdAt?.convertDateToDisplayFormat() ?? "N/A")
+                    self.cofigureUI(with: user)
                 }
                 
             case .failure(let error):
                 self.presentFAllertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
             }
         }
+    }
+    
+    private func cofigureUI(with user: User) {
+        
+        let repoVC = FRepoVC(user: user)
+        repoVC.delegate = self
+        let followerVC = FFollowersVC(user: user)
+        followerVC.delegate = self
+        
+        self.add(childVC: UserHeaderVC(user: user), to: self.headerView)
+        self.add(childVC: repoVC, to: self.itemView1)
+        self.add(childVC: followerVC, to: self.itemView2)
+
+        self.dateLabel.text = "on GitHub since " + (user.createdAt?.convertDateToDisplayFormat() ?? "N/A")
     }
     
     //MARK: - Layout
@@ -121,9 +129,27 @@ class UserInfoVC: UIViewController {
 
 //MARK: - Extensions
 
-extension UserInfoVC {
-    func userSelected(user: String) {
-        self.dismiss(animated: true)
-        delegate?.userSelected(user: user)
+
+
+extension UserInfoVC: UserInfoVCDelegate {
+    
+    func didTapGitHubProfile(for user: User) {
+        guard let url = URL(string: user.htmlUrl ?? "") else {
+            presentFAllertOnMainThread(title: "Invalid URL", message: "URL of this user is invalid", buttonTitle: "OK")
+            return }
+        presentSafariVC(with: url)
     }
+    
+    func didTapGetFollowers(for user: User) {
+        guard user.followers != 0 else {
+            presentFAllertOnMainThread(title: "No Followers", message: "This user has no Followers", buttonTitle: "OK")
+            return
+        }
+        guard let name = user.login else { return }
+        delegate?.didRequestFollowers(for: name)
+        dismiss(animated: true)
+    }
+
+
 }
+

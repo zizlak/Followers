@@ -20,12 +20,12 @@ class FRepoVC: FItemInfoVC {
         itemInfoView2.setupItem(of: .gist, withCount: user.publicGists ?? 0)
         
         actionButton.set(color: .systemPurple, title: "GitHub Profile")
-        actionButton.addTarget(self, action: #selector(goToGithub), for: .touchUpInside)
+
     }
     
     
-    @objc func goToGithub() {
-        
+    override func actionButtonTapped() {
+        delegate?.didTapGitHubProfile(for: user)
     }
 
 }

@@ -13,8 +13,6 @@ class FFollowersVC: FItemInfoVC {
     
     //MARK: - Properties
     
-    weak var delegate: UserInfoVC?
-    
     //MARK: - LifeCycle Methods
     
     override func viewDidLoad() {
@@ -25,19 +23,15 @@ class FFollowersVC: FItemInfoVC {
     //MARK: - Methods
     
     private func configureItems() {
-        itemInfoView1.setupItem(of: .followers, withCount: user.publicRepos ?? 0)
-        itemInfoView2.setupItem(of: .following, withCount: user.publicGists ?? 0)
+        itemInfoView1.setupItem(of: .followers, withCount: user.followers ?? 0)
+        itemInfoView2.setupItem(of: .following, withCount: user.following ?? 0)
         
         actionButton.set(color: .systemGreen, title: "Get Followers")
-        actionButton.addTarget(self, action: #selector(goToFollowers), for: .touchUpInside)
     }
     
-
-    
-    @objc func goToFollowers() {
-        delegate?.userSelected(user: user.login ?? "")
+    override func actionButtonTapped() {
+        delegate?.didTapGetFollowers(for: user)
     }
-
 }
 
 

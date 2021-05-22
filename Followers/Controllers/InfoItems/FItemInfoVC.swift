@@ -20,6 +20,7 @@ class FItemInfoVC: UIViewController {
     //MARK: - Properties
     let padding: CGFloat = 20
     var user: User
+    weak var delegate: UserInfoVCDelegate?
     
     //MARK: - LifeCycle Methods
     
@@ -36,7 +37,8 @@ class FItemInfoVC: UIViewController {
         super.viewDidLoad()
         configureVC()
         layoutUI()
-        configStackView()
+        configureStackView()
+        configureButton()
 
     }
     
@@ -47,9 +49,17 @@ class FItemInfoVC: UIViewController {
         view.backgroundColor = .secondarySystemBackground
     }
     
-    private func configStackView() {
+    private func configureStackView() {
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
+    }
+    
+    private func configureButton() {
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func actionButtonTapped() {
+        
     }
     
     private func layoutUI() {
