@@ -14,6 +14,7 @@ class SearchVC: UIViewController {
     let logoImageView = UIImageView()
     let userTextField = FTextField()
     let callToActionButton = FButton(color: .systemGreen, title: "Get Followers")
+    var logoTopConstr: NSLayoutConstraint!
     
     //MARK: - Properties
     var isUsernmeEntered: Bool {
@@ -30,14 +31,14 @@ class SearchVC: UIViewController {
         configureTextField()
         configureCallToActionButton()
         createDismissKeyboardGesture()
-        
-    //    sendEmail()
+
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        userTextField.text = ""
     }
 
     
@@ -46,10 +47,14 @@ class SearchVC: UIViewController {
     private func configureImageLogoView() {
         view.addSubview(logoImageView)
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.image = UIImage(named: "gh-logo")
+        logoImageView.image = Images.logo
+        
+        let topDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 20 : 80
+        
+        logoTopConstr = logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topDistance)
         
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            logoTopConstr,
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 200),
             logoImageView.widthAnchor.constraint(equalTo: logoImageView.heightAnchor)
@@ -76,7 +81,6 @@ class SearchVC: UIViewController {
         NSLayoutConstraint.activate([
             callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
             callToActionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-//            callToActionButton.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 5),
             callToActionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             callToActionButton.heightAnchor.constraint(equalToConstant: 50)
         ])
@@ -84,7 +88,7 @@ class SearchVC: UIViewController {
     }
     
     private func createDismissKeyboardGesture() {
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         
         view.addGestureRecognizer(tap)
     }
@@ -96,8 +100,9 @@ class SearchVC: UIViewController {
             return
         }
         
-        let vc = FollowerListVC()
-        vc.userName = userTextField.text!
+        userTextField.resignFirstResponder()
+        
+        let vc = FollowerListVC(userName: userTextField.text!)
         navigationController?.pushViewController(vc, animated: true)
         
     }

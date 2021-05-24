@@ -40,7 +40,7 @@ class FTextField: UITextField {
         backgroundColor = .tertiarySystemBackground
         autocorrectionType = .no
         returnKeyType = .go
-        clearButtonMode = .always
+        clearButtonMode = .whileEditing
         
         placeholder = "Enter a username"
     }
