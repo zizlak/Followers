@@ -38,6 +38,7 @@
 		A0E67A72265399790056396B /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E67A71265399790056396B /* FollowerCell.swift */; };
 		A0E67A7826539ABF0056396B /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E67A7726539ABF0056396B /* AvatarImageView.swift */; };
 		A0E67A7D2653E02D0056396B /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E67A7C2653E02D0056396B /* UIHelper.swift */; };
+		A0FA5634265BA5C200AC6161 /* FavoritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FA5633265BA5C200AC6161 /* FavoritesCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		A0E67A71265399790056396B /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		A0E67A7726539ABF0056396B /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		A0E67A7C2653E02D0056396B /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		A0FA5633265BA5C200AC6161 /* FavoritesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				A0E67A71265399790056396B /* FollowerCell.swift */,
+				A0FA5633265BA5C200AC6161 /* FavoritesCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				A0B29D13265B94F1004F5BC3 /* PersistancyManager.swift in Sources */,
 				A0E67A7D2653E02D0056396B /* UIHelper.swift in Sources */,
 				A0DB31922652983700C47D1B /* NetworkManager.swift in Sources */,
+				A0FA5634265BA5C200AC6161 /* FavoritesCell.swift in Sources */,
 				A031C4E7264E769300180D44 /* SceneDelegate.swift in Sources */,
 				A0B29CF626564702004F5BC3 /* UserHeaderVC.swift in Sources */,
 				A031C5192652490400180D44 /* FBodyLabel.swift in Sources */,

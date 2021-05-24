@@ -45,6 +45,7 @@ class FollowerListVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        title = userName
     }
     
     //MARK: - Methods
@@ -78,6 +79,8 @@ class FollowerListVC: UIViewController {
                 
                 if let error = PersistancyManager.update(with: favorite, withAction: .add) {
                     self.presentFAllertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                } else {
+                    self.presentFAllertOnMainThread(title: "well done!!!", message: "User was added to your favorites\n🥳", buttonTitle: "Hooray!!!")
                 }
             }
             
