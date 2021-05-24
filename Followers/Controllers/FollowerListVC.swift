@@ -57,7 +57,31 @@ class FollowerListVC: UIViewController {
     }
     
     @objc func plusTapped() {
-        print("Plus Tapped")
+        showLoadingScreen()
+        
+        NetworkManager.shared.getUserInfo(for: userName) {[weak self] (result) in
+            guard let self = self else { return }
+            self.dismissLoadingScreen()
+            
+            switch result {
+            case .failure(let error):
+                self.presentFAllertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                
+                
+            case .success(let user):
+                guard let login = user.login, let avatarUrl = user.avatarUrl else {
+                    self.presentFAllertOnMainThread(title: "Something went wrong", message: "User's data is not complete", buttonTitle: "Ok")
+                    return
+                }
+                
+                let favorite = Follower(login: login, avatarUrl: avatarUrl)
+                
+                if let error = PersistancyManager.update(with: favorite, withAction: .add) {
+                    self.presentFAllertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                }
+            }
+            
+        }
         
     }
     
