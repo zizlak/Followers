@@ -51,8 +51,16 @@ class FollowerListVC: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
+        let plus = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(plusTapped))
+        
+        navigationItem.rightBarButtonItem = plus
+    }
+    
+    @objc func plusTapped() {
+        print("Plus Tapped")
         
     }
+    
     
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.create3ColumnFlowlayout(in: view))
