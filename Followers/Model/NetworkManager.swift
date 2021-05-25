@@ -94,6 +94,7 @@ class NetworkManager {
             //MARK: - Decode
             let jsonDecoder = JSONDecoder()
             jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+            jsonDecoder.dateDecodingStrategy = .iso8601
             
             do {
                 let user = try jsonDecoder.decode(User.self, from: data)

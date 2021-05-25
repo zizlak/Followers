@@ -35,7 +35,7 @@ class AvatarImageView: UIImageView {
     }
     
     func setPlaceholder() {
-        image = UIImage(named: "avatar-placeholder")
+        image = Images.avatarPlaceholder
     }
     
     func downloadImage(from urlString: String?) {

@@ -11,7 +11,7 @@ protocol FollowerListVCDelegate: class {
     func didRequestFollowers(for userName: String)
 }
 
-class FollowerListVC: UIViewController {
+class FollowerListVC: DataLoadingVC {
     
     //MARK: - Interface
     enum Section { case main }

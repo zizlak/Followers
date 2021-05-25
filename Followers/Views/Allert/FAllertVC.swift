@@ -11,7 +11,7 @@ class FAllertVC: UIViewController {
     
     //MARK: - Interface
     
-    let containerView = UIView()
+    let containerView = FAllertContainerView()
     let titleLabel = FTitleLabel(textAlignment: .center, fontSize: 20)
     let messageLabel = FBodyLabel(textAlignment: .center)
     let actionButton = FButton(color: .systemPink, title: "OK")
@@ -43,7 +43,7 @@ class FAllertVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         configureContainerView()
         configureTitleLabel()
         configureButton()
@@ -55,11 +55,7 @@ class FAllertVC: UIViewController {
     
     private func configureContainerView() {
         view.addSubview(containerView)
-        containerView.backgroundColor = .systemBackground
-        containerView.layer.cornerRadius = 16
-        containerView.layer.borderWidth = 2
-        containerView.layer.borderColor = UIColor.white.cgColor
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+
         
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),

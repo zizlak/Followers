@@ -27,9 +27,8 @@ class EmptyStateView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(message: String) {
-        super.init(frame: .zero)
-        configure()
+   convenience init(message: String) {
+        self.init(frame: .zero)
         label.text = message
     }
     
@@ -43,13 +42,17 @@ class EmptyStateView: UIView {
         label.numberOfLines = 3
         label.textColor = .secondaryLabel
         
-        logo.image = UIImage(named: "empty-state-logo")
+        logo.image = Images.emptyStateLogo
         
         label.translatesAutoresizingMaskIntoConstraints = false
         logo.translatesAutoresizingMaskIntoConstraints = false
         
+        let topDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? -100 : -150
+        let bottomDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 80 : 40
+
+        
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -150),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor, constant: topDistance),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             label.heightAnchor.constraint(equalToConstant: 200),
@@ -57,7 +60,7 @@ class EmptyStateView: UIView {
             logo.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.3),
             logo.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1.3),
             logo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 170),
-            logo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 40)
+            logo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: bottomDistance)
         ])
     }
     

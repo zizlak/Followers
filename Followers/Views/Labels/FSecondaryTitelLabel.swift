@@ -20,10 +20,9 @@ class FSecondaryTitelLabel: UILabel {
         configure()
     }
     
-    init(font size: CGFloat) {
-        super.init(frame: .zero)
+    convenience init(font size: CGFloat) {
+        self.init(frame: .zero)
         self.font = UIFont.systemFont(ofSize: size)
-        configure()
     }
     
     required init?(coder: NSCoder) {

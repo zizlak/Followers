@@ -8,8 +8,6 @@
 import UIKit
 import SafariServices
 
-fileprivate var loadingScreen: UIView?
-
 extension UIViewController {
     
     func presentFAllertOnMainThread(title: String, message: String, buttonTitle: String) {
@@ -23,7 +21,32 @@ extension UIViewController {
         }
         
     }
+
     
+    
+    func showEmtyStateView(with message: String, in view: @autoclosure @escaping () -> UIView) {
+        DispatchQueue.main.async {
+            let emptyStateView = EmptyStateView(message: message)
+            emptyStateView.frame = view().bounds
+            view().addSubview(emptyStateView)
+        }
+    }
+    
+    
+    func presentSafariVC(with url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.preferredControlTintColor = .systemGreen
+        present(safariVC, animated: true)
+    }
+}
+
+
+
+//MARK: - DataLoadingVC
+
+class DataLoadingVC: UIViewController {
+    
+    private var loadingScreen: UIView?
     
     func showLoadingScreen() {
         loadingScreen = UIView(frame: view.bounds)
@@ -43,8 +66,8 @@ extension UIViewController {
         activityInd.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            activityInd.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            activityInd.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            activityInd.centerYAnchor.constraint(equalTo: loadingScreen.centerYAnchor),
+            activityInd.centerXAnchor.constraint(equalTo: loadingScreen.centerXAnchor)
         ])
         
         activityInd.startAnimating()
@@ -53,24 +76,8 @@ extension UIViewController {
     
     func dismissLoadingScreen() {
         DispatchQueue.main.async {
-            loadingScreen?.removeFromSuperview()
-            loadingScreen = nil
+            self.loadingScreen?.removeFromSuperview()
+            self.loadingScreen = nil
         }
-    }
-    
-    
-    func showEmtyStateView(with message: String, in view: @autoclosure @escaping () -> UIView) {
-        DispatchQueue.main.async {
-            let emptyStateView = EmptyStateView(message: message)
-            emptyStateView.frame = view().bounds
-            view().addSubview(emptyStateView)
-        }
-    }
-    
-    
-    func presentSafariVC(with url: URL) {
-        let safariVC = SFSafariViewController(url: url)
-        safariVC.preferredControlTintColor = .systemGreen
-        present(safariVC, animated: true)
     }
 }

@@ -40,6 +40,9 @@ class UserInfoVC: UIViewController {
         layoutUI()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+    }
+    
     //MARK: - Methods
     
     private func configureVC() {
@@ -82,7 +85,7 @@ class UserInfoVC: UIViewController {
         self.add(childVC: repoVC, to: self.itemView1)
         self.add(childVC: followerVC, to: self.itemView2)
 
-        self.dateLabel.text = "on GitHub since " + (user.createdAt?.convertDateToDisplayFormat() ?? "N/A")
+        self.dateLabel.text = "on GitHub since " + (user.createdAt?.convertToMmmYyyyFormat() ?? "N/A")
     }
     
     //MARK: - Layout
