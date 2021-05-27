@@ -20,14 +20,15 @@ class EmptyStateView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureLogo()
+        configureLabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-   convenience init(message: String) {
+    convenience init(message: String) {
         self.init(frame: .zero)
         label.text = message
     }
@@ -35,21 +36,15 @@ class EmptyStateView: UIView {
     
     //MARK: - Methods
     
-    private func configure() {
+    private func configureLabel() {
         addSubview(label)
-        addSubview(logo)
         
         label.numberOfLines = 3
         label.textColor = .secondaryLabel
         
-        logo.image = Images.emptyStateLogo
-        
         label.translatesAutoresizingMaskIntoConstraints = false
-        logo.translatesAutoresizingMaskIntoConstraints = false
         
         let topDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? -100 : -150
-        let bottomDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 80 : 40
-
         
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor, constant: topDistance),
@@ -57,15 +52,31 @@ class EmptyStateView: UIView {
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             label.heightAnchor.constraint(equalToConstant: 200),
             
+        ])
+        
+    }
+    
+    private func configureLogo() {
+        
+        addSubview(logo)
+        
+        
+        logo.image = Images.emptyStateLogo
+        
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        
+        let bottomDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 80 : 40
+        
+        NSLayoutConstraint.activate([
             logo.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.3),
             logo.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1.3),
             logo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 170),
             logo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: bottomDistance)
         ])
+        
     }
     
-    
     //MARK: - Extensions
-
+    
     
 }

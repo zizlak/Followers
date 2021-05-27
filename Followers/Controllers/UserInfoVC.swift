@@ -8,9 +8,9 @@
 import UIKit
 
 protocol UserInfoVCDelegate: class {
-    func didTapGitHubProfile(for user: User)
-    func didTapGetFollowers(for user: User)
+    func didRequestFollowers(for userName: String)
 }
+
 
 class UserInfoVC: UIViewController {
     
@@ -23,7 +23,7 @@ class UserInfoVC: UIViewController {
     
     //MARK: - Properties
     
-    weak var delegate: FollowerListVCDelegate?
+    weak var delegate: UserInfoVCDelegate?
     
     var userName: String?
     let padding: CGFloat = 20
@@ -76,10 +76,8 @@ class UserInfoVC: UIViewController {
     
     private func cofigureUI(with user: User) {
         
-        let repoVC = FRepoVC(user: user)
-        repoVC.delegate = self
-        let followerVC = FFollowersVC(user: user)
-        followerVC.delegate = self
+        let repoVC = FRepoVC(user: user, delegate: self)
+        let followerVC = FFollowersVC(user: user, delegate: self)
         
         self.add(childVC: UserHeaderVC(user: user), to: self.headerView)
         self.add(childVC: repoVC, to: self.itemView1)
@@ -104,7 +102,7 @@ class UserInfoVC: UIViewController {
             
             //Header
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 180),
+            headerView.heightAnchor.constraint(equalToConstant: 210),
             
             
             //Item1
@@ -118,7 +116,7 @@ class UserInfoVC: UIViewController {
             
             //DateLabel
             dateLabel.topAnchor.constraint(equalTo: itemView2.bottomAnchor, constant: padding),
-            dateLabel.heightAnchor.constraint(equalToConstant: 18)
+            dateLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -134,7 +132,7 @@ class UserInfoVC: UIViewController {
 
 
 
-extension UserInfoVC: UserInfoVCDelegate {
+extension UserInfoVC: FRepoVCCDelegate, FFollowersVCDelegate {
     
     func didTapGitHubProfile(for user: User) {
         guard let url = URL(string: user.htmlUrl ?? "") else {

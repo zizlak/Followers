@@ -11,7 +11,7 @@ enum PersistancyAction {
     case add, delete
 }
 
-struct PersistancyManager {
+struct PersistanceManager {
     
     static private let userDefaults = UserDefaults.standard
     
@@ -20,26 +20,24 @@ struct PersistancyManager {
     
     static func update(with favorite: Follower, withAction action: PersistancyAction) -> FError? {
         
-        var arrayOfFavorites = [Follower]()
         
         switch retrieveFavorites() {
         
-        case .success(let favorites):
-            arrayOfFavorites = favorites
+        case .success(var favorites):
             
             switch action {
             case .add:
-                guard !arrayOfFavorites.contains(favorite) else {
+                guard !favorites.contains(favorite) else {
                     return .alrearyFavorite
                 }
-                arrayOfFavorites.append(favorite)
+                favorites.append(favorite)
                 
             case .delete:
-                arrayOfFavorites.removeAll(where: { $0.login == favorite.login
+                favorites.removeAll(where: { $0.login == favorite.login
                 })
             }
             
-            return save(favorites: arrayOfFavorites)
+            return save(favorites: favorites)
             
            
         case .failure(let error):

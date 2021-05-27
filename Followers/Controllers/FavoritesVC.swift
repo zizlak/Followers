@@ -36,6 +36,7 @@ class FavoritesVC: UIViewController {
         view.backgroundColor = .systemBlue
         view.addSubview(tableView)
         tableView.frame = view.bounds
+        tableView.tableFooterView = UIView()
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -45,7 +46,7 @@ class FavoritesVC: UIViewController {
     
     
     private func reload() {
-        let result = PersistancyManager.retrieveFavorites()
+        let result = PersistanceManager.retrieveFavorites()
         switch result {
         case .success(let favorites):
             array = favorites
@@ -88,14 +89,14 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let favorite = array[indexPath.row]
-            array.remove(at: indexPath.row)
             
-            if let error = PersistancyManager.update(with: favorite, withAction: .delete) {
+            let favorite = array[indexPath.row]
+            if let error = PersistanceManager.update(with: favorite, withAction: .delete) {
                 presentFAllertOnMainThread(title: "Unable to delete", message: error.rawValue, buttonTitle: "Ok")
             }
+            
+            array.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .middle)
         }
     }
-    
 }

@@ -81,3 +81,12 @@ class DataLoadingVC: UIViewController {
         }
     }
 }
+
+//MARK: - UIView
+extension UIView {
+    func addViews(_ views: UIView...) {
+        for view in views {
+            self.addSubview(view)
+        }
+    }
+}

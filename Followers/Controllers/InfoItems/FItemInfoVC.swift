@@ -7,9 +7,9 @@
 
 import UIKit
 
+
 class FItemInfoVC: UIViewController {
 
-    
     //MARK: - Interface
     
     let stackView = UIStackView()
@@ -20,7 +20,6 @@ class FItemInfoVC: UIViewController {
     //MARK: - Properties
     let padding: CGFloat = 20
     var user: User
-    weak var delegate: UserInfoVCDelegate?
     
     //MARK: - LifeCycle Methods
     
@@ -64,8 +63,7 @@ class FItemInfoVC: UIViewController {
     
     private func layoutUI() {
         
-        view.addSubview(stackView)
-        view.addSubview(actionButton)
+        view.addViews(stackView, actionButton)
         
         stackView.addArrangedSubview(itemInfoView1)
         stackView.addArrangedSubview(itemInfoView2)

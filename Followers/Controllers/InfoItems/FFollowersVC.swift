@@ -7,13 +7,26 @@
 
 import UIKit
 
+protocol FFollowersVCDelegate: class {
+    func didTapGetFollowers(for: User)
+}
+
 class FFollowersVC: FItemInfoVC {
     
-    //MARK: - Interface
-    
     //MARK: - Properties
+
+    weak var delegate: FFollowersVCDelegate?
     
     //MARK: - LifeCycle Methods
+    
+    init(user: User, delegate: FFollowersVCDelegate) {
+        super.init(user: user)
+        self.delegate = delegate
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol FollowerListVCDelegate: class {
-    func didRequestFollowers(for userName: String)
-}
-
 class FollowerListVC: DataLoadingVC {
     
     //MARK: - Interface
@@ -26,6 +22,7 @@ class FollowerListVC: DataLoadingVC {
     var followers: [Follower] = []
     var filteredFollowers: [Follower] = []
     var isSearching = false
+    var isLoading = false
     
     var page = 1
     var hasMoreFollowers = true
@@ -87,7 +84,7 @@ class FollowerListVC: DataLoadingVC {
                 
                 let favorite = Follower(login: login, avatarUrl: avatarUrl)
                 
-                if let error = PersistancyManager.update(with: favorite, withAction: .add) {
+                if let error = PersistanceManager.update(with: favorite, withAction: .add) {
                     self.presentFAllertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
                 } else {
                     self.presentFAllertOnMainThread(title: "well done!!!", message: "User was added to your favorites\n🥳", buttonTitle: "Hooray!!!")
@@ -134,7 +131,6 @@ class FollowerListVC: DataLoadingVC {
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Search for a username"
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         
     }
@@ -142,7 +138,9 @@ class FollowerListVC: DataLoadingVC {
     //MARK: - Networking
     func getFollowers() {
         showLoadingScreen()
+        isLoading = true
         NetworkManager.shared.getFollowers(for: userName, page: self.page) { [weak self] (result) in
+            
             guard let self = self else { return }
             self.dismissLoadingScreen()
             
@@ -165,6 +163,7 @@ class FollowerListVC: DataLoadingVC {
             }
             
         }
+        self.isLoading = false
     }
 }
 
@@ -177,7 +176,7 @@ extension FollowerListVC: UICollectionViewDelegate {
         let height = scrollView.frame.size.height
         
         if offsetY > contentHeight - height {
-            guard hasMoreFollowers else { return }
+            guard hasMoreFollowers, !isLoading else { return }
             page += 1
             getFollowers()
             
@@ -200,30 +199,30 @@ extension FollowerListVC: UICollectionViewDelegate {
 }
 
 //MARK: - Search
-extension FollowerListVC: UISearchResultsUpdating, UISearchBarDelegate {
+extension FollowerListVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let filter = searchController.searchBar.text, !filter.isEmtyOrWhiteSpace() else { return }
+        
+        guard let filter = searchController.searchBar.text, !filter.isEmtyOrWhiteSpace() else {
+            filteredFollowers.removeAll()
+            updateData(on: followers)
+            isSearching = false
+            return }
+        
         isSearching = true
         filteredFollowers = followers.filter { $0.login!.lowercased().contains(filter.lowercased()) }
         updateData(on: filteredFollowers)
     }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
-        updateData(on: followers)
-    }
-    
 }
     
 
-extension FollowerListVC: FollowerListVCDelegate {
+extension FollowerListVC: UserInfoVCDelegate {
     func didRequestFollowers(for userName: String) {
         self.userName = userName
         title = userName
         followers = []
         filteredFollowers = []
         page = 1
-        collectionView.setContentOffset(.zero, animated: true)
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
         getFollowers()
     }
 }
