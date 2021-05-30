@@ -13,8 +13,7 @@ class EmptyStateView: UIView {
     
     let label = FTitleLabel(textAlignment: .center, fontSize: 28)
     let logo = UIImageView()
-    
-    //MARK: - Properties
+
     
     //MARK: - LifeCycle Methods
     
@@ -44,28 +43,24 @@ class EmptyStateView: UIView {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        let topDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? -100 : -150
+        let topDistance: CGFloat = DeviceTypes.isSmallScreen ? -100 : -150
         
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor, constant: topDistance),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
-            label.heightAnchor.constraint(equalToConstant: 200),
-            
+            label.heightAnchor.constraint(equalToConstant: 200)
         ])
-        
     }
     
+    
     private func configureLogo() {
-        
         addSubview(logo)
         
-        
         logo.image = Images.emptyStateLogo
-        
         logo.translatesAutoresizingMaskIntoConstraints = false
         
-        let bottomDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 80 : 40
+        let bottomDistance: CGFloat = DeviceTypes.isSmallScreen ? 80 : 40
         
         NSLayoutConstraint.activate([
             logo.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.3),
@@ -73,10 +68,5 @@ class EmptyStateView: UIView {
             logo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 170),
             logo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: bottomDistance)
         ])
-        
     }
-    
-    //MARK: - Extensions
-    
-    
 }

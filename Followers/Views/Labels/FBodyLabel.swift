@@ -9,10 +9,6 @@ import UIKit
 
 class FBodyLabel: UILabel {
 
-    //MARK: - Interface
-    
-    //MARK: - Properties
-    
     //MARK: - LifeCycle Methods
     
     override init(frame: CGRect) {
@@ -31,7 +27,6 @@ class FBodyLabel: UILabel {
     
     //MARK: - Methods
     
-    
     private func configure() {
         textColor = .secondaryLabel
         font = UIFont.preferredFont(forTextStyle: .body)
@@ -41,10 +36,5 @@ class FBodyLabel: UILabel {
         lineBreakMode = .byWordWrapping
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    //MARK: - Extensions
-    
-
-    
 }
 

@@ -16,11 +16,13 @@ class SearchVC: UIViewController {
     let callToActionButton = FButton(color: .systemGreen, title: "Get Followers")
     var logoTopConstr: NSLayoutConstraint!
     
+    
     //MARK: - Properties
     var isUsernmeEntered: Bool {
         guard let text = userTextField.text else {return false}
         return !text.isEmtyOrWhiteSpace()
     }
+    
     
     //MARK: - LifeCycle Methods
     
@@ -31,7 +33,6 @@ class SearchVC: UIViewController {
         configureTextField()
         configureCallToActionButton()
         createDismissKeyboardGesture()
-
     }
     
     
@@ -49,7 +50,7 @@ class SearchVC: UIViewController {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.image = Images.logo
         
-        let topDistance: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 20 : 80
+        let topDistance: CGFloat = DeviceTypes.isSmallScreen ? 20 : 80
         
         logoTopConstr = logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topDistance)
         
@@ -74,6 +75,7 @@ class SearchVC: UIViewController {
         ])
     }
     
+    
     private func configureCallToActionButton() {
         view.addSubview(callToActionButton)
         callToActionButton.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
@@ -84,8 +86,8 @@ class SearchVC: UIViewController {
             callToActionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             callToActionButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-
     }
+    
     
     private func createDismissKeyboardGesture() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
@@ -93,8 +95,8 @@ class SearchVC: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    
     @objc private func pushFollowerListVC() {
-        
         guard isUsernmeEntered else {
             presentFAllertOnMainThread(title: "Empty Username", message: "Please enter username 😁", buttonTitle: "OK")
             return
@@ -104,11 +106,10 @@ class SearchVC: UIViewController {
         
         let vc = FollowerListVC(userName: userTextField.text!)
         navigationController?.pushViewController(vc, animated: true)
-        
     }
-    
 }
     
+
     //MARK: - Extensions
 
 extension SearchVC: UITextFieldDelegate {

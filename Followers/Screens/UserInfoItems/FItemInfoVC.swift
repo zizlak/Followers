@@ -17,9 +17,12 @@ class FItemInfoVC: UIViewController {
     let itemInfoView2 = FItemInfoView()
     var actionButton = FButton()
     
+    
     //MARK: - Properties
+    
     let padding: CGFloat = 20
     var user: User
+    
     
     //MARK: - LifeCycle Methods
     
@@ -32,14 +35,15 @@ class FItemInfoVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
         layoutUI()
         configureStackView()
         configureButton()
-
     }
+    
     
     //MARK: - Methods
     
@@ -48,21 +52,20 @@ class FItemInfoVC: UIViewController {
         view.backgroundColor = .secondarySystemBackground
     }
     
+    
     private func configureStackView() {
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
     }
     
+    
     private func configureButton() {
         actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
     }
     
-    @objc func actionButtonTapped() {
-        
-    }
+    @objc func actionButtonTapped() {}
     
     private func layoutUI() {
-        
         view.addViews(stackView, actionButton)
         
         stackView.addArrangedSubview(itemInfoView1)
@@ -82,11 +85,5 @@ class FItemInfoVC: UIViewController {
             actionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             actionButton.heightAnchor.constraint(equalToConstant: 44)
         ])
-        
     }
-    
-    //MARK: - Extensions
-
-    
-
 }

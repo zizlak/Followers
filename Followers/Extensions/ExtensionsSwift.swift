@@ -13,8 +13,6 @@ extension String {
          return self.filter({$0 != " "}).isEmpty
     }
     
-    
-    
     func convertToDate() -> Date? {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -34,6 +32,7 @@ extension String {
 
 
 extension Date {
+    
     func convertToMmmYyyyFormat() -> String {
         let df = DateFormatter()
         df.dateFormat = "MMM d, yyyy"

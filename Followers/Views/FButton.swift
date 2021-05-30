@@ -8,7 +8,9 @@
 import UIKit
 
 class FButton: UIButton {
-
+    
+    //MARK: - LifeCycle Methods
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -25,6 +27,8 @@ class FButton: UIButton {
         self.setTitle(title, for: .normal)
     }
     
+    //MARK: - Methods
+    
     private func configure() {
         layer.cornerRadius      = 10
         setTitleColor(.white, for: .normal)
@@ -33,14 +37,11 @@ class FButton: UIButton {
     }
     
     
-    
     func set(color: UIColor, title: String) {
         self.setTitle(title, for: .normal)
         
         self.backgroundColor = color
         self.setTitleColor(color, for: .highlighted)
-        
-        
     }
     
 }

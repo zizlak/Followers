@@ -8,6 +8,7 @@
 import Foundation
 
 enum FError: String, Error {
+    
     case invalidUserName = "Invalid User Name"
     case unableToComplete = "Unable to complete the request"
     case invalidResponse = "Invalid response from the server"

@@ -8,12 +8,12 @@
 import UIKit
 
 class NetworkManager {
+    
     static let shared = NetworkManager()
     private let numberOfPages = "100"
     let cache = NSCache<NSString, UIImage>()
     
     private init(){}
-    
     
     
     func getFollowers(for userName: String, page: Int, completion: @escaping (Result<[Follower], FError>) -> Void) {
@@ -22,12 +22,10 @@ class NetworkManager {
         //    let baseURL = "https://api.github.com/users/"
         //    let endpoint = baseURL + userName + "/followers?per_page=" + numberOfPages + "&page=" + "\(page)"
         
-        
         guard let url = createStringURL(userName: userName, page: page) else {
             completion(.failure(.invalidUserName))
             return
         }
-        
         
         //MARK: - URLSession
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -41,7 +39,6 @@ class NetworkManager {
             }
             
             //MARK: - Data
-            
             guard let data = data else {
                 completion(.failure(.invalidData))
                 return
@@ -62,7 +59,6 @@ class NetworkManager {
         
         task.resume()
     }
-    
     
     
     func getUserInfo(for userName: String, completion: @escaping (Result<User, FError>) -> Void) {
@@ -131,6 +127,5 @@ class NetworkManager {
         ]
         
         return components.url
-        
     }
 }

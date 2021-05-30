@@ -11,15 +11,18 @@ protocol UserInfoVCDelegate: class {
     func didRequestFollowers(for userName: String)
 }
 
-
 class UserInfoVC: UIViewController {
     
     //MARK: - Interface
+    
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     
     let headerView = UIView()
     let itemView1 = UIView()
     let itemView2 = UIView()
     let dateLabel = FBodyLabel(textAlignment: .center)
+    
     
     //MARK: - Properties
     
@@ -29,21 +32,37 @@ class UserInfoVC: UIViewController {
     let padding: CGFloat = 20
     let itemHeight: CGFloat = 140
     
+    
     //MARK: - LifeCycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .systemBackground
         configureVC()
+        configureScrollView()
         fetchUser()
         layoutUI()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-    }
     
     //MARK: - Methods
+    
+    private func configureScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        scrollView.pin(to: view)
+        contentView.pin(to: scrollView)
+        
+        scrollView.showsVerticalScrollIndicator = false
+        
+        NSLayoutConstraint.activate([
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: 620)
+        ])
+    }
+    
     
     private func configureVC() {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
@@ -54,6 +73,7 @@ class UserInfoVC: UIViewController {
     @objc func dismissVC() {
         dismiss(animated: true)
     }
+    
     
     //MARK: - Networking
     private func fetchUser() {
@@ -74,6 +94,7 @@ class UserInfoVC: UIViewController {
         }
     }
     
+    
     private func cofigureUI(with user: User) {
         
         let repoVC = FRepoVC(user: user, delegate: self)
@@ -89,19 +110,19 @@ class UserInfoVC: UIViewController {
     //MARK: - Layout
     private func layoutUI() {
         for v in [headerView, itemView1, itemView2, dateLabel] {
-            view.addSubview(v)
+            contentView.addSubview(v)
             v.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
-                v.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-                v.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
+                v.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+                v.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
             ])
         }
         
         NSLayoutConstraint.activate([
             
             //Header
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 210),
             
             
@@ -120,6 +141,7 @@ class UserInfoVC: UIViewController {
         ])
     }
     
+    
     private func add(childVC: UIViewController, to container: UIView) {
         addChild(childVC)
         container.addSubview(childVC.view)
@@ -128,9 +150,8 @@ class UserInfoVC: UIViewController {
     }
 }
 
+
 //MARK: - Extensions
-
-
 
 extension UserInfoVC: FRepoVCCDelegate, FFollowersVCDelegate {
     
@@ -141,6 +162,7 @@ extension UserInfoVC: FRepoVCCDelegate, FFollowersVCDelegate {
         presentSafariVC(with: url)
     }
     
+    
     func didTapGetFollowers(for user: User) {
         guard user.followers != 0 else {
             presentFAllertOnMainThread(title: "No Followers", message: "This user has no Followers", buttonTitle: "OK")
@@ -150,7 +172,5 @@ extension UserInfoVC: FRepoVCCDelegate, FFollowersVCDelegate {
         delegate?.didRequestFollowers(for: name)
         dismiss(animated: true)
     }
-
-
 }
 

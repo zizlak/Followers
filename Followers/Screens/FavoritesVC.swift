@@ -44,7 +44,6 @@ class FavoritesVC: UIViewController {
     }
     
     
-    
     private func reload() {
         let result = PersistanceManager.retrieveFavorites()
         switch result {
@@ -56,15 +55,16 @@ class FavoritesVC: UIViewController {
             presentFAllertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
         }
     }
-    
-    
-    
 }
+
+
 //MARK: - Extensions
+
 extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return array.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoritesCell.id) as? FavoritesCell else {
@@ -76,8 +76,8 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
      
         let favorite = array[indexPath.row]
         guard let userName = favorite.login else { return }

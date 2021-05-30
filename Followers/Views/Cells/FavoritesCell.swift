@@ -8,7 +8,6 @@
 import UIKit
 
 class FavoritesCell: UITableViewCell {
-
     
     //MARK: - Interface
     
@@ -31,8 +30,8 @@ class FavoritesCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
     
+    //MARK: - Methods
     
     private func configure() {
         for v in [label, avatar] {
@@ -53,19 +52,12 @@ class FavoritesCell: UITableViewCell {
             label.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: padding),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             label.heightAnchor.constraint(equalToConstant: 40)
-            
         ])
-        
-
-        
-
-        
     }
+    
     
     func setCell(with favorite: Follower) {
         label.text = favorite.login
         avatar.downloadImage(from: favorite.avatarUrl)
     }
-    
-
 }

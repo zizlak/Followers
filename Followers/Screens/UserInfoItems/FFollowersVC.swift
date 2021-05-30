@@ -17,6 +17,7 @@ class FFollowersVC: FItemInfoVC {
 
     weak var delegate: FFollowersVCDelegate?
     
+    
     //MARK: - LifeCycle Methods
     
     init(user: User, delegate: FFollowersVCDelegate) {
@@ -28,10 +29,12 @@ class FFollowersVC: FItemInfoVC {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureItems()
     }
+    
     
     //MARK: - Methods
     
@@ -42,10 +45,8 @@ class FFollowersVC: FItemInfoVC {
         actionButton.set(color: .systemGreen, title: "Get Followers")
     }
     
+    
     override func actionButtonTapped() {
         delegate?.didTapGetFollowers(for: user)
     }
 }
-
-
-//MARK: - Extensions

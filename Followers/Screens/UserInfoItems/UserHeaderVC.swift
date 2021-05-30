@@ -21,10 +21,10 @@ class UserHeaderVC: UIViewController {
     //MARK: - Properties
 
     let imagePadding: CGFloat = 12
-    
     var user: User
     
-    //MARK: - Init
+    
+    //MARK: - LifeCycle Methods
 
     init(user: User) {
         self.user = user
@@ -35,13 +35,13 @@ class UserHeaderVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - LifeCycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configure()
     }
+    
     
     //MARK: - Methods
     
@@ -101,10 +101,9 @@ class UserHeaderVC: UIViewController {
             bioLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
             bioLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bioLabel.heightAnchor.constraint(equalToConstant: 90)
-            
         ])
-        
     }
+    
     
     private func setUser() {
         
@@ -116,7 +115,4 @@ class UserHeaderVC: UIViewController {
         
         locationImageView.image = UIImage(systemName: SFSymbols.location)
     }
-    
-    //MARK: - ExtensibioLabel = FBodyLaons
-    
 }

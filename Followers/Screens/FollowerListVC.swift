@@ -10,10 +10,12 @@ import UIKit
 class FollowerListVC: DataLoadingVC {
     
     //MARK: - Interface
+    
     enum Section { case main }
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
+    
     
     //MARK: - Properties
     
@@ -27,6 +29,7 @@ class FollowerListVC: DataLoadingVC {
     var page = 1
     var hasMoreFollowers = true
     
+    
     //MARK: - LifeCycle Methods
     
     init(userName: String) {
@@ -38,7 +41,7 @@ class FollowerListVC: DataLoadingVC {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -49,11 +52,13 @@ class FollowerListVC: DataLoadingVC {
         getFollowers()
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         title = userName
     }
+    
     
     //MARK: - Methods
     
@@ -63,6 +68,7 @@ class FollowerListVC: DataLoadingVC {
         
         navigationItem.rightBarButtonItem = plus
     }
+    
     
     @objc func plusTapped() {
         showLoadingScreen()
@@ -74,7 +80,6 @@ class FollowerListVC: DataLoadingVC {
             switch result {
             case .failure(let error):
                 self.presentFAllertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
-                
                 
             case .success(let user):
                 guard let login = user.login, let avatarUrl = user.avatarUrl else {
@@ -90,9 +95,7 @@ class FollowerListVC: DataLoadingVC {
                     self.presentFAllertOnMainThread(title: "well done!!!", message: "User was added to your favorites\n🥳", buttonTitle: "Hooray!!!")
                 }
             }
-            
         }
-        
     }
     
     
@@ -115,6 +118,7 @@ class FollowerListVC: DataLoadingVC {
         })
     }
     
+    
     private func updateData(on followers: [Follower]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapshot.appendSections([.main])
@@ -123,8 +127,8 @@ class FollowerListVC: DataLoadingVC {
         DispatchQueue.main.async {
             self.dataSource.apply(snapshot, animatingDifferences: true)
         }
-        
     }
+    
     
     private func configureSearchController() {
         let searchController = UISearchController()
@@ -132,8 +136,8 @@ class FollowerListVC: DataLoadingVC {
         searchController.searchBar.placeholder = "Search for a username"
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
-        
     }
+    
     
     //MARK: - Networking
     func getFollowers() {
@@ -158,14 +162,13 @@ class FollowerListVC: DataLoadingVC {
                         self.showEmtyStateView(with: "This user has no followers. Go follow them 😜", in: self.view)
                         return
                 }
-              
                 self.updateData(on: self.followers)
             }
-            
         }
         self.isLoading = false
     }
 }
+
 
 //MARK: - Extensions
 
@@ -179,9 +182,7 @@ extension FollowerListVC: UICollectionViewDelegate {
             guard hasMoreFollowers, !isLoading else { return }
             page += 1
             getFollowers()
-            
         }
-        
     }
     
     
@@ -197,6 +198,7 @@ extension FollowerListVC: UICollectionViewDelegate {
         self.present(navC, animated: true)
     }
 }
+
 
 //MARK: - Search
 extension FollowerListVC: UISearchResultsUpdating {
@@ -215,6 +217,7 @@ extension FollowerListVC: UISearchResultsUpdating {
 }
     
 
+//MARK: - UserInfoVCDelegate
 extension FollowerListVC: UserInfoVCDelegate {
     func didRequestFollowers(for userName: String) {
         self.userName = userName

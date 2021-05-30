@@ -9,7 +9,6 @@ import UIKit
 
 class FTextField: UITextField {
     
-    
     //MARK: - LifeCycle Methods
     
     override init(frame: CGRect) {
@@ -44,6 +43,4 @@ class FTextField: UITextField {
         
         placeholder = "Enter a username"
     }
-    
-
 }

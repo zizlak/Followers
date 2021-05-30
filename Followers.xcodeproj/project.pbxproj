@@ -113,10 +113,11 @@
 			isa = PBXGroup;
 			children = (
 				A0B29CFE2656903E004F5BC3 /* Utility */,
+				A0668F4D2663945D00E92A2A /* Managers */,
 				A031C50F26523A2800180D44 /* Model */,
-				A031C51026523A3000180D44 /* Views */,
-				A031C51126523A3600180D44 /* Controllers */,
 				A031C51E2652523300180D44 /* Extensions */,
+				A031C51026523A3000180D44 /* Views */,
+				A031C51126523A3600180D44 /* Screens */,
 				A031C51226523A4000180D44 /* Supporting Files */,
 			);
 			path = Followers;
@@ -127,8 +128,6 @@
 			children = (
 				A0DB318B265288DF00C47D1B /* Follower.swift */,
 				A0DB318E2652899F00C47D1B /* User.swift */,
-				A0DB31912652983700C47D1B /* NetworkManager.swift */,
-				A0E67A6D265312B10056396B /* FError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -136,34 +135,33 @@
 		A031C51026523A3000180D44 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A0FA5637265BB9C500AC6161 /* TabBars */,
-				A031C4EF264E769600180D44 /* LaunchScreen.storyboard */,
-				A0668F48265D559100E92A2A /* Allert */,
-				A031C500264FA5D400180D44 /* FButton.swift */,
-				A0B29CF826564A4A004F5BC3 /* Labels */,
 				A031C5052650F53400180D44 /* FTextField.swift */,
+				A031C500264FA5D400180D44 /* FButton.swift */,
+				A0FA5637265BB9C500AC6161 /* TabBars */,
+				A0668F48265D559100E92A2A /* Allert */,
+				A0B29CF826564A4A004F5BC3 /* Labels */,
 				A0B29CF926564A5F004F5BC3 /* CustomViews */,
 				A0E67A74265399890056396B /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		A031C51126523A3600180D44 /* Controllers */ = {
+		A031C51126523A3600180D44 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
 				A031C4E8264E769300180D44 /* SearchVC.swift */,
 				A031C508265179DA00180D44 /* FollowerListVC.swift */,
-				A0B29CF02655A52A004F5BC3 /* UserInfoVC.swift */,
-				A0B29CF526564702004F5BC3 /* UserHeaderVC.swift */,
 				A031C4FD264EAC5000180D44 /* FavoritesVC.swift */,
-				A0B29D10265786EE004F5BC3 /* InfoItems */,
+				A0B29CF02655A52A004F5BC3 /* UserInfoVC.swift */,
+				A0B29D10265786EE004F5BC3 /* UserInfoItems */,
 			);
-			path = Controllers;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		A031C51226523A4000180D44 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A031C4EF264E769600180D44 /* LaunchScreen.storyboard */,
 				A031C4F2264E769600180D44 /* Info.plist */,
 				A031C4E4264E769300180D44 /* AppDelegate.swift */,
 				A031C4E6264E769300180D44 /* SceneDelegate.swift */,
@@ -190,6 +188,15 @@
 			path = Allert;
 			sourceTree = "<group>";
 		};
+		A0668F4D2663945D00E92A2A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				A0DB31912652983700C47D1B /* NetworkManager.swift */,
+				A0B29D12265B94F1004F5BC3 /* PersistanceManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		A0B29CF826564A4A004F5BC3 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,20 +221,21 @@
 			isa = PBXGroup;
 			children = (
 				A0E67A7C2653E02D0056396B /* UIHelper.swift */,
+				A0E67A6D265312B10056396B /* FError.swift */,
 				A0B29D0026569063004F5BC3 /* Constants.swift */,
-				A0B29D12265B94F1004F5BC3 /* PersistanceManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		A0B29D10265786EE004F5BC3 /* InfoItems */ = {
+		A0B29D10265786EE004F5BC3 /* UserInfoItems */ = {
 			isa = PBXGroup;
 			children = (
+				A0B29CF526564702004F5BC3 /* UserHeaderVC.swift */,
 				A0B29D062656CBF3004F5BC3 /* FItemInfoVC.swift */,
 				A0B29D0C2657862C004F5BC3 /* FFollowersVC.swift */,
 				A0B29D09265781B1004F5BC3 /* FRepoVC.swift */,
 			);
-			path = InfoItems;
+			path = UserInfoItems;
 			sourceTree = "<group>";
 		};
 		A0E67A74265399890056396B /* Cells */ = {

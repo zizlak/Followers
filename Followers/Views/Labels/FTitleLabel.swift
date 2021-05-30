@@ -9,10 +9,6 @@ import UIKit
 
 class FTitleLabel: UILabel {
 
-    //MARK: - Interface
-    
-    //MARK: - Properties
-    
     //MARK: - LifeCycle Methods
     
     override init(frame: CGRect) {

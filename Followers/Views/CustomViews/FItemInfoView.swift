@@ -10,6 +10,7 @@ import UIKit
 
 //MARK: - ItemInfoType
 struct ItemInfoType {
+    
     let symbol: String
     let text: String
     
@@ -20,7 +21,7 @@ struct ItemInfoType {
 }
 
 
-
+//MARK: - FItemInfoView
 
 class FItemInfoView: UIView {
 
@@ -30,7 +31,6 @@ class FItemInfoView: UIView {
     let titelLabel = FTitleLabel(textAlignment: .left, fontSize: 14)
     let countLabel = FTitleLabel(textAlignment: .center, fontSize: 14)
     
-    //MARK: - Properties
     
     //MARK: - LifeCycle Methods
     
@@ -42,6 +42,8 @@ class FItemInfoView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     //MARK: - Methods
     
     private func configure() {
@@ -68,17 +70,13 @@ class FItemInfoView: UIView {
             countLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             countLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             countLabel.heightAnchor.constraint(equalToConstant: 18)
-            
         ])
     }
+    
     
     func setupItem(of type: ItemInfoType, withCount count: Int) {
         symbolImageView.image = UIImage(systemName: type.symbol)
         titelLabel.text = type.text
         countLabel.text = "\(count)"
     }
-    
-    
-    //MARK: - Extensions
-    
 }

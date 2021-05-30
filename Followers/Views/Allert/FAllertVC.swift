@@ -65,6 +65,7 @@ class FAllertVC: UIViewController {
         ])
     }
     
+    
     private func configureTitleLabel() {
         containerView.addSubview(titleLabel)
         titleLabel.text = alertTitle ?? "Something went wrong"
@@ -77,6 +78,7 @@ class FAllertVC: UIViewController {
         ])
         
     }
+    
     
     private func configureButton() {
         containerView.addSubview(actionButton)
@@ -108,15 +110,5 @@ class FAllertVC: UIViewController {
             messageLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
             messageLabel.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: 8)
         ])
-        
     }
-    
-    
-    
-    
-    //MARK: - Extensions
-    
-    
-    
-    
 }

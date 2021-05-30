@@ -14,12 +14,11 @@ enum PersistancyAction {
 struct PersistanceManager {
     
     static private let userDefaults = UserDefaults.standard
-    
-    static private let favoritesKey = "favorites"
-    
+    enum Keys {
+        static let favorites = "favorites"
+    }
     
     static func update(with favorite: Follower, withAction action: PersistancyAction) -> FError? {
-        
         
         switch retrieveFavorites() {
         
@@ -27,9 +26,8 @@ struct PersistanceManager {
             
             switch action {
             case .add:
-                guard !favorites.contains(favorite) else {
-                    return .alrearyFavorite
-                }
+                guard !favorites.contains(favorite) else { return .alrearyFavorite }
+                
                 favorites.append(favorite)
                 
             case .delete:
@@ -38,7 +36,6 @@ struct PersistanceManager {
             }
             
             return save(favorites: favorites)
-            
            
         case .failure(let error):
             return error
@@ -46,11 +43,9 @@ struct PersistanceManager {
     }
     
     
-    
-    
     static func retrieveFavorites() -> Result<[Follower], FError> {
         
-        guard let favoritesData = userDefaults.object(forKey: favoritesKey) as? Data else { return .success([]) }
+        guard let favoritesData = userDefaults.object(forKey: Keys.favorites) as? Data else { return .success([]) }
         
         do {
             let result = try JSONDecoder().decode([Follower].self, from: favoritesData)
@@ -61,17 +56,14 @@ struct PersistanceManager {
     }
     
     
-    
     static func save(favorites: [Follower]) -> FError? {
         
         do {
             let data = try JSONEncoder().encode(favorites)
-            userDefaults.setValue(data, forKey: favoritesKey)
+            userDefaults.setValue(data, forKey: Keys.favorites)
             return nil
         } catch {
             return .couldNotSaveFavorite
         }
-        
     }
-    
 }

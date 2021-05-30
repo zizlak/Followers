@@ -8,10 +8,6 @@
 import UIKit
 
 class FSecondaryTitelLabel: UILabel {
-
-    //MARK: - Interface
-    
-    //MARK: - Properties
     
     //MARK: - LifeCycle Methods
     
@@ -29,8 +25,8 @@ class FSecondaryTitelLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
     
+    //MARK: - Methods
     
     private func configure() {
         textColor = .secondaryLabel
@@ -39,9 +35,4 @@ class FSecondaryTitelLabel: UILabel {
         lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    //MARK: - Extensions
-    
-
-    
 }

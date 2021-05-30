@@ -19,10 +19,8 @@ extension UIViewController {
             
             self.present(allertVC, animated: true)
         }
-        
     }
 
-    
     
     func showEmtyStateView(with message: String, in view: @autoclosure @escaping () -> UIView) {
         DispatchQueue.main.async {
@@ -71,7 +69,6 @@ class DataLoadingVC: UIViewController {
         ])
         
         activityInd.startAnimating()
-        
     }
     
     func dismissLoadingScreen() {
@@ -88,5 +85,16 @@ extension UIView {
         for view in views {
             self.addSubview(view)
         }
+    }
+    
+    func pin(to parentView: UIView) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.topAnchor.constraint(equalTo: parentView.topAnchor),
+            self.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+            self.trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
+            self.bottomAnchor.constraint(equalTo: parentView.bottomAnchor)
+        ])
     }
 }

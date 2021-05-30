@@ -10,13 +10,16 @@ import UIKit
 class FollowerCell: UICollectionViewCell {
     
     //MARK: - Interface
+    
     let avatrImageView = AvatarImageView(frame: .zero)
     let userNameLabel = FTitleLabel(textAlignment: .center, fontSize: 16)
+    
     
     //MARK: - Properties
     
     static let reuseID = String(describing: FollowerCell.self)
     let padding: CGFloat = 8
+    
     
     //MARK: - LifeCycle Methods
     
@@ -29,12 +32,14 @@ class FollowerCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     //MARK: - Methods
     
     func set(follower: Follower) {
         userNameLabel.text = follower.login
         avatrImageView.downloadImage(from: follower.avatarUrl)
     }
+    
     
     private func configure() {
         addSubview(avatrImageView)
@@ -55,6 +60,7 @@ class FollowerCell: UICollectionViewCell {
             userNameLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()

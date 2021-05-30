@@ -7,16 +7,18 @@
 
 import UIKit
 
-
 protocol FRepoVCCDelegate: class {
     func didTapGitHubProfile(for user: User)
 }
 
-
 class FRepoVC: FItemInfoVC {
     
-
+    //MARK: - Properties
+    
     weak var delegate: FRepoVCCDelegate?
+    
+    
+    //MARK: - LifeCycle Methods
     
     init(user: User, delegate: FRepoVCCDelegate) {
         super.init(user: user)
@@ -27,10 +29,14 @@ class FRepoVC: FItemInfoVC {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureItems()
     }
+    
+    
+    //MARK: - Methods
     
     private func configureItems() {
         itemInfoView1.setupItem(of: .repo, withCount: user.publicRepos ?? 0)

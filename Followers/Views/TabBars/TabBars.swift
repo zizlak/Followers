@@ -8,7 +8,9 @@
 import UIKit
 
 class FTabBarController: UITabBarController {
-    
+
+    //MARK: - LifeCycle Methods
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -20,8 +22,8 @@ class FTabBarController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
+    //MARK: - Methods
+
     private func createSearchNC() -> UINavigationController {
         let vc = SearchVC()
         vc.title = "Search"
@@ -37,6 +39,4 @@ class FTabBarController: UITabBarController {
         
         return UINavigationController(rootViewController: vc)
     }
-
-    
 }

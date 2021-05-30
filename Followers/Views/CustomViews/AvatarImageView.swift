@@ -9,10 +9,10 @@ import UIKit
 
 class AvatarImageView: UIImageView {
 
-    //MARK: - Interface
-    
     //MARK: - Properties
+    
     let cache = NetworkManager.shared.cache
+    
     
     //MARK: - LifeCycle Methods
     
@@ -24,6 +24,7 @@ class AvatarImageView: UIImageView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     //MARK: - Methods
     
@@ -37,6 +38,7 @@ class AvatarImageView: UIImageView {
     func setPlaceholder() {
         image = Images.avatarPlaceholder
     }
+    
     
     func downloadImage(from urlString: String?) {
         guard let urlString = urlString else { return }
@@ -64,7 +66,4 @@ class AvatarImageView: UIImageView {
         task.resume()
         
     }
-    
-    //MARK: - Extensions
-
 }
