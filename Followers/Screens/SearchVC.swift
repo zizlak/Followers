@@ -14,7 +14,6 @@ class SearchVC: UIViewController {
     let logoImageView = UIImageView()
     let userTextField = FTextField()
     let callToActionButton = FButton(color: .systemGreen, title: "Get Followers")
-    var logoTopConstr: NSLayoutConstraint!
     
     
     //MARK: - Properties
@@ -41,21 +40,20 @@ class SearchVC: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
         userTextField.text = ""
     }
-
+    
     
     //MARK: - Methods
     
     private func configureImageLogoView() {
         view.addSubview(logoImageView)
+        
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.image = Images.logo
         
         let topDistance: CGFloat = DeviceTypes.isSmallScreen ? 20 : 80
         
-        logoTopConstr = logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topDistance)
-        
         NSLayoutConstraint.activate([
-            logoTopConstr,
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topDistance),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 200),
             logoImageView.widthAnchor.constraint(equalTo: logoImageView.heightAnchor)

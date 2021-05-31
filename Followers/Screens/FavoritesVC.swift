@@ -15,7 +15,7 @@ class FavoritesVC: UIViewController {
     
     //MARK: - Properties
     
-    var array = [Follower]()
+    var arrayOfFavorites = [Follower]()
     
     //MARK: - LifeCycle Methods
     
@@ -48,7 +48,7 @@ class FavoritesVC: UIViewController {
         let result = PersistanceManager.retrieveFavorites()
         switch result {
         case .success(let favorites):
-            array = favorites
+            arrayOfFavorites = favorites
             tableView.reloadData()
             
         case .failure(let error):
@@ -62,7 +62,7 @@ class FavoritesVC: UIViewController {
 
 extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
+        return arrayOfFavorites.count
     }
     
     
@@ -71,7 +71,7 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("Cell for Table View not found")
         }
         
-        let favorite = array[indexPath.row]
+        let favorite = arrayOfFavorites[indexPath.row]
         cell.setCell(with: favorite)
         return cell
     }
@@ -79,23 +79,22 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
-        let favorite = array[indexPath.row]
+        let favorite = arrayOfFavorites[indexPath.row]
         guard let userName = favorite.login else { return }
         let vc = FollowerListVC(userName: userName)
         navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let favorite = array[indexPath.row]
+            let favorite = arrayOfFavorites[indexPath.row]
             if let error = PersistanceManager.update(with: favorite, withAction: .delete) {
                 presentFAllertOnMainThread(title: "Unable to delete", message: error.rawValue, buttonTitle: "Ok")
             }
             
-            array.remove(at: indexPath.row)
+            arrayOfFavorites.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .middle)
         }
     }
